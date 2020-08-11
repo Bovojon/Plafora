@@ -8,15 +8,17 @@ class Home extends Component {
     render() {
         return (
             <Container>
-                <Grid item spacing={2} xs={6}>
-                    <Paper>
-                        <LoginForm />
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper>
-                        
-                    </Paper>
+                <Grid container>
+                    <Grid item xs={5}>
+                        <Paper style={{padding:10, minHeight:300}}>
+                            <LoginForm />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={5}>
+                        <Paper style={{marginLeft:10, padding:10, minHeight:300}}>
+                            <RegistrationForm />
+                        </Paper>
+                    </Grid>
                 </Grid>
             </Container>
         )

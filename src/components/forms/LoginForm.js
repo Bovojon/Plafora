@@ -43,6 +43,7 @@ class LoginForm extends Component {
     render() {
         return (
             <Fragment>
+                <h3>Sign In</h3>
                 <Formik 
                     validateOnBlur={false}
                     initialValues={{email: '', password: ''}}
@@ -53,7 +54,7 @@ class LoginForm extends Component {
                     render = {
                         ({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
                             <Form>
-                                <Grid item spacing={3}>
+                                <Grid item style={{margin:5}}>
                                     <FormControl>
                                         <Field 
                                             type="email"
@@ -66,7 +67,7 @@ class LoginForm extends Component {
                                     </FormControl>
                                 </Grid>
 
-                                <Grid item spacing={3}>
+                                <Grid item style={{margin:5}}>
                                     <FormControl>
                                         <Field 
                                             type="password"
