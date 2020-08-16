@@ -46,7 +46,7 @@ function* handleErrorSaga(error) {
         yield call(handleApiErrorSaga, error);
     } else {
         // React app error
-       console.error('Error': error);
+       console.error('Error: ', error);
        yield put({type: 'EXCEPTION_ERROR', payload: {error}});
     }
 }
