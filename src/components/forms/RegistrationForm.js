@@ -1,6 +1,4 @@
-const { Component } = require("react")
-
-import React {Component, Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 
 import {
@@ -54,7 +52,7 @@ class RegistrationForm extends Component {
                 <Formik
                     validateOnBlur={false}
                     initialValues={{email:'', password1:'', password2:''}}
-                    onSubmit={(values, {setSubstring, restForm, initialValues}) => {
+                    onSubmit={(values, {setSubstring, resetForm, initialValues}) => {
                         const resetThisForm = () => resetForm(initialValues);
                         this.props.submitLogin(values, setSubstring, resetThisForm)
                     }}
