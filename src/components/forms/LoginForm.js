@@ -1,10 +1,12 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {
     TextField,
     FormControl,
     Button,
-    Grid
+    Grid,
+    Input
 } from '@material-ui/core';
 
 class LoginForm extends Component {
@@ -49,11 +51,11 @@ class LoginForm extends Component {
                     initialValues={{email: '', password: ''}}
                     onSubmit={(values, {setSubmitting, resetForm, initialValues}) => {
                         const resetThisForm = () => resetForm(initialValues);
-                        this.props.submitLogin(values, setSubmitting, resetThisForm)
+                        this.props.login(values, setSubmitting, resetThisForm)
                     }}
                     render = {
                         ({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
-                            <Form>
+                            <Form onSubmit={handleSubmit}>
                                 <Grid item style={{margin:5}}>
                                     <FormControl>
                                         <Field 
@@ -79,7 +81,7 @@ class LoginForm extends Component {
                                         <ErrorMessage name="password" component="password" />
                                     </FormControl>
                                 </Grid>
-                                <Button varient="contained" color="primary" size="large" disabled={isSubmitting}>Sign In</Button>
+                                <Button varient="contained" color="primary" size="large"><Input type="submit" disabled={isSubmitting}>Sign In</Input></Button>
                             </Form>
                         )
                     }
@@ -89,4 +91,13 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (values, setSubmitting, resetForm) => dispatch({
+            type: 'AUTH_REQUEST', 
+            payload: {values, setSubmitting, resetForm}
+        })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginForm);
