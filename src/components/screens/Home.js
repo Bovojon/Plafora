@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Grid, Paper} from 'material-ui/core';
+import {Container, Grid, Paper} from '@material-ui/core';
 
 import LoginForm from '../forms/LoginForm';
 import RegistrationForm from '../forms/RegistrationForm';
