@@ -100,4 +100,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
+/* 
+    Form only dispatches an action to the store when login() is called.
+    It is not subscribed to any changes to the state in the store.
+*/
 export default connect(null, mapDispatchToProps)(LoginForm);

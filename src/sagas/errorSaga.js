@@ -52,12 +52,15 @@ function* handleErrorSaga(error) {
 }
 
 /* 
-    Watcher/Worker pattern below
+    Worker
 */
 function* handleFailedAuth() {
     yield put({type: 'SIGN_OUT'});
 }
 
+/* 
+    Watcher
+*/
 function* listenForErrors() {
     yield takeLatest(AUTH_FAILURE, handleFailedAuth);
 }

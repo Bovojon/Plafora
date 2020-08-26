@@ -5,6 +5,9 @@ import {toastr} from 'react-redux-toastr';
 import {AuthService} from '../services';
 import {handleErrorSaga, handleApiErrorSaga} from './errorSaga';
 
+/**
+ * Workers
+ */
 function* authorize({ payload: {values, setSubmitting, resetForm} }) {
     const {email, password} = values;
 
@@ -42,6 +45,9 @@ function* handleSignOut() {
     yield put(push('/'));
 }
 
+/**
+ * Watchers
+ */
 function* listenForSignInRequest() {
     yield takeLatest('AUTH_REQUEST', authorize);
 }
