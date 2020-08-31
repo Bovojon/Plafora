@@ -391,3 +391,22 @@ class EventForm extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        submitEvent: (values, setSubmitting, resetForm, setErrors, isTouched, spaceId, userId) => (
+            dispatch({ 
+                type: 'EVENT_REQUEST',
+                payload: { values, setSubmitting, resetForm, setErrors, isTouched, spaceId, userId }
+             })
+        ),
+        saveEvent: (values, setSubmitting, resetForm, setErrors, isTouched) => (
+            dispatch({
+                type: 'SAVE_EVENT_REQUEST',
+                payload: { values, setSubmitting, resetForm, setErrors, isTouched }
+            })
+        )
+    }
+}
+
+export default connect(null, mapDispatchToProps)(EventForm);
