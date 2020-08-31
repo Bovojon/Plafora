@@ -5,10 +5,10 @@ import {
     SIGN_OUT
 } from '../actions';
 
-const tokenReducer = (state=null, {type, payload}) => {
-    switch(type) {
+const tokenReducer = (state=null, action) => {
+    switch(action.type) {
         case AUTH_SUCCESS: {
-            const {token} = payload;
+            const {token} = action.payload;
             return token;
         }
         case AUTH_FAILURE: {
