@@ -1,30 +1,23 @@
 import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { FormGroup, Label, Input, Button } from "reactstrap";
 
-import {
-    TextField,
-    FormControl,
-    Button,
-    Grid
-} from '@material-ui/core';
+import ErrorSpan from './ErrorSpan';
 
 class RegistrationForm extends Component {
-    state={warning: false};
+    constructor(props) {
+        super(props);
+        this.state = {
+            warning: false
+        }
+    }
 
-    /**
-     * Hide warning when losing focus.
-     * @param handleBlur Formik blur event.
-     * @param event      Input event.
-     */
     onBlur(handleBlur, event) {
         this.setState({ warning: false });
         handleBlur(event);
     }
 
-    /**
-     * Detect caps lock being on when typing.
-     * @param keyEvent On key down event.
-     */
     onKeyUp = keyEvent => {
         if (keyEvent.getModifierState("CapsLock")) {
         this.setState({ warning: true });
@@ -33,10 +26,6 @@ class RegistrationForm extends Component {
         }
     };
 
-    /**
-     * Detect caps lock being on when typing.
-     * @param keyEvent On key down event.
-     */
     onKeyDown = keyEvent => {
         if (keyEvent.getModifierState("CapsLock")) {
         this.setState({ warning: true });
@@ -47,64 +36,60 @@ class RegistrationForm extends Component {
 
     render() {
         return (
-            <Fragment>
+            <>
                 <h3>Sign Up</h3>
                 <Formik
                     validateOnBlur={false}
                     initialValues={{email:'', password1:'', password2:''}}
-                    onSubmit={(values, {setSubstring, resetForm, initialValues}) => {
+                    onSubmit={(values, {setSubstring, resetForm, initialValues, isError, isTouched}) => {
                         const resetThisForm = () => resetForm(initialValues);
-                        this.props.submitLogin(values, setSubstring, resetThisForm)
+                        this.props.register(values, setSubstring, resetThisForm, isError, isTouched)
                     }}
                     render = {({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
-                        <Form>
-                            <Grid item xs={12} style={{ margin: 5 }}>
-                                <FormControl>
-                                    <Field
-                                        type="email"
-                                        name="email"
-                                        render={ ({field}) => (
-                                            <TextField {...field} label="Email" variant="outlined" />
-                                        )}
-                                    />
-                                    <ErrorMessage name="email" component="div" />
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} style={{ margin: 5 }}>
-                                <FormControl>
-                                    <Field
-                                        type="password1"
-                                        name="password1"
-                                        render={ ({field}) => (
-                                            <TextField {...field} label="Password" variant="outlined" />
-                                        )}
-                                    />
-                                    <ErrorMessage name="password1" component="password1" />
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item xs={12} style={{ margin: 5 }}>
-                                <FormControl>
-                                    <Field
-                                        type="password2"
-                                        name="password2"
-                                        render={ ({field}) => (
-                                            <TextField m={2} {...field} label="Confirm Password" variant="outlined" />
-                                        )}
-                                    />
-                                    <ErrorMessage name="password2" component="password2" />
-                                </FormControl>
-                            </Grid>
-
-                            <Button varient="contained" color="primary" size="large" disabled={isSubmitting}>Sign Up</Button>
-
+                        <Form className="w-100">
+                            <FormGroup>
+                                <Label for="email">Email</Label>
+                                <Field
+                                    type="email"
+                                    name="email"
+                                    render={ ({field}) => ( <Input  {...field} type="email" placeholder="Email" />)} 
+                                />
+                                <ErrorMessage name="email" component={ErrorSpan} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="password1">Password</Label>
+                                <Field
+                                    type="password"
+                                    name="password1"
+                                    render={ ({field}) => ( <Input {...field} type="password" placeholder="Password" /> )} 
+                                />
+                                <ErrorMessage name="password1" component={ErrorSpan} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="password2">Confirm Password</Label>
+                                <Field
+                                    type="password"
+                                    name="password2"
+                                    render={ ({field}) => ( <Input {...field} type="password" placeholder="Confirm Password" /> )} 
+                                />
+                                <ErrorMessage name="password2" component={ErrorSpan} />
+                            </FormGroup>
+                            <Button color="info" type="submit" disabled={isSubmitting}>Sign Up</Button>
                         </Form>
                     )}
                 />
-            </Fragment>
-        )
+            </>
+        );
     }
 }
 
-export default RegistrationForm;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        register: (values, setSubmitting, resetForm, setErrors, isTouched) => dispatch({
+            type: "REGISTRATION_REQUEST",
+            payload: { values, setSubmitting, resetForm, setErrors, isTouched }
+        })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(RegistrationForm);
