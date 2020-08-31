@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 
-const eventFromReducer = (state=null, {type, payload}) => {
-    switch(type) {
+const eventFromReducer = (state=null, action) => {
+    switch(action.type) {
         case "SAVE_EVENT_REQUEST": {
-            const {values} = payload;
+            const {values} = action.payload;
             return values;
         }
         case "EVENT_REQUEST": {
