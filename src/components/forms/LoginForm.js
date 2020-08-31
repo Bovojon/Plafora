@@ -1,31 +1,23 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {
-    TextField,
-    FormControl,
-    Button,
-    Grid,
-    Input
-} from '@material-ui/core';
+import { FormGroup, Label, Input, Button } from "reactstrap";
+
+import ErrorSpan from './ErrorSpan';
 
 class LoginForm extends Component {
-    state = {warning: false};
+    constructor(props) {
+        super(props);
+        this.state = {
+            warning: false
+        }
+    }
 
-    /**
-     * Hide warning when losing focus.
-     * @param handleBlur Formik blur event.
-     * @param event      Input event.
-     */
     onBlur(handleBlur, event) {
         this.setState({warning: false});
         handleBlur(event);
     }
 
-    /**
-     * Detect caps lock being on when typing.
-     * @param keyEvent On key down event.
-     */
     onKeyUp = keyEvent => {
         if(keyEvent.getModifierState("CapsLock")) {
             this.setState({warning: true});
@@ -44,64 +36,55 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <Fragment>
+            <>
                 <h3>Sign In</h3>
                 <Formik 
                     validateOnBlur={false}
                     initialValues={{email: '', password: ''}}
                     onSubmit={(values, {setSubmitting, resetForm, initialValues}) => {
                         const resetThisForm = () => resetForm(initialValues);
-                        this.props.login(values, setSubmitting, resetThisForm)
+                        this.props.login(values, setSubmitting, resetThisForm, setErrors, isTouched)
                     }}
                     render = {
                         ({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
-                            <Form onSubmit={handleSubmit}>
-                                <Grid item style={{margin:5}}>
-                                    <FormControl>
-                                        <Field 
-                                            type="email"
-                                            name="email"
-                                            render={({field}) => (
-                                                <TextField mb={2} {...field} label="Email" varient="outlined" />
-                                            )}
-                                        />
-                                        <ErrorMessage name="email" component="div" />
-                                    </FormControl>
-                                </Grid>
-
-                                <Grid item style={{margin:5}}>
-                                    <FormControl>
-                                        <Field 
-                                            type="password"
-                                            name="password"
-                                            render={({field}) => (
-                                                <TextField m={2} {...field} label="Password" varient="outlined" />
-                                            )}
-                                        />
-                                        <ErrorMessage name="password" component="password" />
-                                    </FormControl>
-                                </Grid>
-                                <Button varient="contained" color="primary" size="large"><Input type="submit" disabled={isSubmitting}>Sign In</Input></Button>
+                            <Form onSubmit={handleSubmit} className="w-100">
+                                <FormGroup>
+                                    <Label for="email">Email</Label>
+                                    <Field
+                                        type="email"
+                                        name="email"
+                                        render={ ({field}) => ( <Input  {...field} type="email" placeholder="Email" /> )} 
+                                    />
+                                    <ErrorMessage name="email" component={ErrorSpan} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="password">Password</Label>
+                                    <Field
+                                        type="password"
+                                        name="password"
+                                        render={ ({field}) => ( <Input  {...field} type="password" placeholder="Password" />)} 
+                                    />
+                                    <ErrorMessage name="password" component={ErrorSpan} />
+                                </FormGroup>
+                                <Button color="info" type="submit" disabled={isSubmitting}>
+                                    Sign In
+                                </Button>
                             </Form>
                         )
                     }
                 />
-            </Fragment>
+            </>
         )
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (values, setSubmitting, resetForm) => dispatch({
+        login: (values, setSubmitting, resetForm, setErrors, isTouched) => dispatch({
             type: 'AUTH_REQUEST', 
-            payload: {values, setSubmitting, resetForm}
+            payload: { values, setSubmitting, resetForm, setErrors, isTouched }
         })
     }
 }
 
-/* 
-    Form only dispatches an action to the store when login() is called.
-    It is not subscribed to any changes to the state in the store.
-*/
 export default connect(null, mapDispatchToProps)(LoginForm);
