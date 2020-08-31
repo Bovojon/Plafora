@@ -10,7 +10,7 @@ const AuthService = {
     forgotPassword: (username, email) => {
         return unauthenticatedPost('/passwords/forgot', {username, email});
     },
-    resetPassword: (pasword, password_confirmation, reset_password_token) => {
+    resetPassword: (password, password_confirmation, reset_password_token) => {
         return unauthenticatedPut('/passwords/reset', {password, password_confirmation, reset_password_token})
     },
 }
