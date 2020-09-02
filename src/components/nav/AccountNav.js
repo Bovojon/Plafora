@@ -1,37 +1,42 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import {push} from 'connected-react-router';
+import { 
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+} from 'reactstrap';
 
 const AccountNav = (props) => {
-    const [anchorEl, setAnchorEl] = useState(null);
-    
-    const handleClick = event => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    }
-
     const handleLogout = () => {
         props.logout();
-        handleClose();
     }
 
     return (
-        <>
-            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                {props.user.username}
-            </Button>
-            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My Account</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
-        </>
-    )
+        <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+                {props.user ? 
+                    (props.user.first_name ? 
+                        `${props.user.first_name} ${props.user.last_name}`
+                        :
+                        props.user.email
+                    )
+                    :
+                    ""
+                }
+            </DropdownToggle>
+            <DropdownMenu right>
+                <DropdownItem onClick={() => props.navigateTo("/profile")}>
+                    Profile
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem onClick={handleLogout}>
+                    Logout
+                </DropdownItem>
+            </DropdownMenu>
+        </UncontrolledDropdown>
+    );
 }
 
 const mapStateToProps = (state) => {
@@ -42,6 +47,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        navigateTo: (route) => {
+            dispatch(push(route));
+        },
         logout: () => dispatch({ type: 'SIGN_OUT' })
     }
 }
