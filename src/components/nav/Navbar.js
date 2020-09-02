@@ -1,81 +1,59 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    AppBar ,
-    Toolbar,
-    Typography,
-    Button
-} from '@material-ui/core';
-import clsx from 'clsx';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {makeStyles} from '@material-ui/core/styles';
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Collapse,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap';
+
 import AccountNav from './AccountNav';
 
-const useStyles = makeStyles(theme => ({
-    '@global': {
-        ul: {
-          margin: 0,
-          padding: 0,
-        },
-        li: {
-          listStyle: 'none',
-        },
-      },
-      appBar: {
-        borderBottom: `1px solid ${theme.palette.divider}`,
-      },
-      toolbar: {
-        flexWrap: 'wrap',
-      },
-      toolbarTitle: {
-        flexGrow: 1,
-      },
-      link: {
-        margin: theme.spacing(1, 1.5),
-      },
-      heroContent: {
-        padding: theme.spacing(8, 0, 6),
-      },
-      cardHeader: {
-        backgroundColor: theme.palette.grey[200],
-      },
-      cardPricing: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        marginBottom: theme.spacing(2),
-      },
-      footer: {
-        borderTop: `1px solid ${theme.palette.divider}`,
-        marginTop: theme.spacing(8),
-        paddingTop: theme.spacing(3),
-        paddingBottom: theme.spacing(3),
-        [theme.breakpoints.up('sm')]: {
-          paddingTop: theme.spacing(6),
-          paddingBottom: theme.spacing(6),
-        },
-      },
-}));
-
 const Navbar = (props) => {
-    const classes = useStyles();
+	const [isOpen, setIsOpen] = useState(false);
+	const { auth: { token } } = props;
+
+    const toggle = () => {
+        setIsOpen(!isOpen)
+    }
+
+    const handleBrandClick = (event) => {
+		event.preventDefault();
+		props.navigateTo("/");
+	}
+	
+	const handleLoginClick = (e) => {
+		e.preventDefault();
+		props.navigateTo("/login");
+	}
+
+	const handleSpacesClick = (e) => {
+		e.preventDefault();
+		props.navigateTo("/places");
+	}
 
     return (
-        <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-            <Toolbar className={classes.toolbar}>
-                <Typography varient="h6" color="inherit" noWarp className={classes.toolbarTitle}>
-                    Plafora
-                </Typography>
-                {props.auth.token ? 
-                    <AccountNav />
-                : 
-                    <Button href="#" color="primary" varient="outlined" className={classes.link}>
-                        Login
-                    </Button>
-                }
-            </Toolbar>
-        </AppBar>
-    )
+		<Navbar color="info" dark expand="md" fixed="top">
+			<NavbarBrand href="#" onClick={handleBrandClick}>
+				Plafora
+			</NavbarBrand>
+			<NavbarToggler onClick={toggle} />
+			<Collapse isOpen={isOpen} navbar>
+				<Nav navbar>
+					<NavLink href="#!" onClick={handleSpacesClick}>Places</NavLink>
+				</Nav>
+				<Nav className="ml-auto" navbar>
+					{token && <AccountNav />}
+					{!token && <NavItem>
+						<NavLink href="#" onClick={handleLoginClick}>Login</NavLink>
+					</NavItem>}
+				</Nav>
+			</Collapse>
+		</Navbar>
+    );
 }
 
 const mapStateToProps = (state) => {
@@ -84,4 +62,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		navigateTo: (route) => {
+			dispatch(push(route));
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

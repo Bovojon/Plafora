@@ -14,6 +14,7 @@ Built with React, Redux, Redux-Saga.
 * `compose()` is used to apply multiple store enhancers (e.g. middleware, time 
     travel, persistence). 
 * `applyMiddleware()` is the only enhancer that ships with Redux.
+* `connected-react-router` provides Redux bindings for React Router synchronizes router state with redux store through uni-directional flow (history -> store -> router -> components).
 
 ### Redux-LocalStorage-Simple 
 * Used to save and load Redux state to and from LocalStorage.
@@ -23,7 +24,7 @@ Built with React, Redux, Redux-Saga.
 * `Object.values(obj)` returns an array of the obj's values.
 * `typeof operand` returns a string indicating the type of the unevaluated operand.
 
-### Refactoring:
+## Refactoring:
 - Put all action types in actions/constants.js
 - Replace `className` with styled components.
 - Convert class components to functions using Hooks.
