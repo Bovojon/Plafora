@@ -1,28 +1,47 @@
 import React, {Component} from 'react';
-import {Container, Grid, Paper} from '@material-ui/core';
-
-import LoginForm from '../forms/LoginForm';
-import RegistrationForm from '../forms/RegistrationForm';
+import {connect} from 'react-redux';
+import {push} from 'connected-react-router';
+import {
+    Container,
+    Row,
+    Col,
+    Card,
+    CardImg,
+    CardTitle,
+    CardBody,
+    Button
+  } from 'reactstrap';
 
 class Home extends Component {
     render() {
         return (
-            <Container>
-                <Grid container>
-                    <Grid item xs={5}>
-                        <Paper style={{padding:10, minHeight:300}}>
-                            <LoginForm />
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={5}>
-                        <Paper style={{marginLeft:10, padding:10, minHeight:300}}>
-                            <RegistrationForm />
-                        </Paper>
-                    </Grid>
-                </Grid>
+            <Container className="home-container d-flex align-items-center justify-content-between" fluid>
+                <Row style={{ flex: 1, marginTop: "-3em" }}>
+                    <Col md={{ size: "10", offset: "1" }} lg={{ size: "8", offset: "2" }} xl={{ size: "6", offset: "3" }}>
+                        <div className="text-center">
+                            <h1 className="text-info">Places for all</h1>
+                            <p className="lead"><span className="text-info">Plafora</span> helps you quickly find and reserve unique places for your gatherings</p>
+                            <Button color="info" size="lg" block onClick={() => this.props.navigateTo("/places")}>View all places</Button>
+                        </div>
+                    </Col>
+                </Row>
             </Container>
         )
     }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        eventFormValues: state.events.eventForm
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        navigateTo: (route) => {
+            dispatch(push(route));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
