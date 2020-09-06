@@ -23,6 +23,8 @@ Built with React, Redux, Redux-Saga.
 * `Boolean()` converts value passes as param to a bool. Returns `false` if the value is omitted, `0, -0, null, false, NaN, undefined`, or the empty string ("").
 * `Object.values(obj)` returns an array of the obj's values.
 * `typeof operand` returns a string indicating the type of the unevaluated operand.
+* `lodash` library makes it easier to work with arrays, numbers, objects, strings, etc.
+* `array.forEach(callbackFunction())`
 
 ## Refactoring:
 - Put all action types in actions/constants.js
