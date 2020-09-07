@@ -17,7 +17,7 @@ import {
 } from 'reactstrap';
 
 import EventFormModal from '../spaces/EventFormModal';
-import IndividualSpaceCarouselModal from '../spaces/IndividualSpaceCarouselModal';
+import SpaceCarousel from '../spaces/SpaceCarousel';
 
 const Space = ({spaces, getSpaces, navigateTo, match, user, auth, eventFormValues}) => {
     const [eventFormModal, setEventFormModal] = useState(false);
@@ -293,7 +293,7 @@ const Space = ({spaces, getSpaces, navigateTo, match, user, auth, eventFormValue
               user={user}
               eventFormValues={eventFormValues}
               toggle={handleEventFormToggle} />
-            <IndividualSpaceCarouselModal
+            <SpaceCarousel
               open={spaceCarouselModal}
               spaceId={space.id}
               toggle={() => setSpaceCarouselModal(!spaceCarouselModal)} />

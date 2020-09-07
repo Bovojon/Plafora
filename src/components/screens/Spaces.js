@@ -4,7 +4,7 @@ import { Container, Row, Col, Spinner } from 'reactstrap';
 import { isEmpty } from 'lodash';
 
 import SpaceCard from '../spaces/SpaceCard';
-import SpaceCarouselModal from '../spaces/SpaceCarouselModal';
+import SpaceCarousel from '../spaces/SpaceCarousel';
 import Axios from 'axios';
 
 const Spaces = ({auth, spaces, getSpaces}) => {
@@ -58,7 +58,7 @@ const Spaces = ({auth, spaces, getSpaces}) => {
                 <Row>
                     { spaceCards }
                 </Row>
-                <SpaceCarouselModal spaceId={selectedSpaceId} setSelectedSpace={setSelectedSpace} />
+                <SpaceCarousel spaceId={selectedSpaceId} setSelectedSpace={setSelectedSpace} />
             </Container>
         );
     }
