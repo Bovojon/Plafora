@@ -1,11 +1,8 @@
-import { authenticatedGet, authenticatedPatch } from './apiService';
+import { authenticatedPatch } from './apiService';
 
 const UserService = {
-    getUser: () => {
-        return authenticatedGet('/user/');
-    },
     updateUser: (data) => {
-        return authenticatedPatch('/user/', data);
+        return authenticatedPatch('/rest-auth/user/', data);
     }
 }
 
