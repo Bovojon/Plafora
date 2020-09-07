@@ -1,8 +1,8 @@
-import {unauthenticatedPost, authenticatedPatch, authenticatedPost, unauthenticatedPut, authenticatedDelete} from './apiService';
+import {unauthenticatedPost, unauthenticatedPut, authenticatedDelete} from './apiService';
 
 const AuthService = {
     login: ({email, password}) => {
-        return unauthenticatedPost('/login/', {email, password});
+        return unauthenticatedPost('/rest-auth/login/', {email, password});
     },
     logout: () => {
         return authenticatedDelete('/sessions');
@@ -13,6 +13,9 @@ const AuthService = {
     resetPassword: (password, password_confirmation, reset_password_token) => {
         return unauthenticatedPut('/passwords/reset', {password, password_confirmation, reset_password_token})
     },
+    register: ({email, password1, password2}) => {
+        return unauthenticatedPost('/rest-auth/registration/', {email, password1, password2});
+    }
 }
 
 export default AuthService;
