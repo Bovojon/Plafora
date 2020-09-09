@@ -1,7 +1,7 @@
 import {put, takeLatest, call} from 'redux-saga/effects';
 import {toastr} from 'react-redux-toastr';
 
-import {AUTH_FAILURE, SESSION_EXPIRED} from '../actions/constants'
+import {AUTH_FAILURE, SESSION_EXPIRED} from '../actions/constants';
 
 function* handleApiErrorSaga(error) {
     let message;
