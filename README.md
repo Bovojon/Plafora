@@ -20,6 +20,9 @@ Built with React, Redux, Redux-Saga.
 ### Redux-LocalStorage-Simple 
 * Used to save and load Redux state to and from LocalStorage.
 
+### React-Router
+* Dynamic pieces of the URL passed to a component can be accessed via `match.params`. Instead, use `useParams` hook.
+
 ### Connected-React-Router
 * Used to synchronize router state with redux store.
 * To navigate with Redux action, use `store.dispatch(push('/path/to/somewhere'))` or `yield put(push('/home))` in a saga.
