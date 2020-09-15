@@ -1,7 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import {Input, CustomInput} from 'reactstrap';
+import {Input} from 'reactstrap';
 
 const DATE_FORMAT = 'MM-dd-yyyy h:mm aa'
 

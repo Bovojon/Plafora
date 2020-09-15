@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
+import {push} from 'connected-react-router';
 import {
   Navbar,
   NavbarBrand,
@@ -12,7 +13,7 @@ import {
 
 import AccountNav from './AccountNav';
 
-const Navbar = (props) => {
+const MainNavbar = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { auth: { token } } = props;
 
@@ -70,4 +71,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(MainNavbar);

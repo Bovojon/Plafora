@@ -1,4 +1,4 @@
-import {all, call, takeEvery, put} from 'redux-saga/effects';
+import {all, call, takeLatest, put} from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { toastr } from 'react-redux-toastr';
 

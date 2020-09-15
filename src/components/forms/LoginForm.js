@@ -41,7 +41,7 @@ class LoginForm extends Component {
                 <Formik 
                     validateOnBlur={false}
                     initialValues={{email: '', password: ''}}
-                    onSubmit={(values, {setSubmitting, resetForm, initialValues}) => {
+                    onSubmit={(values, {setSubmitting, resetForm, initialValues, setErrors, isTouched}) => {
                         const resetThisForm = () => resetForm(initialValues);
                         this.props.login(values, setSubmitting, resetThisForm, setErrors, isTouched)
                     }}

@@ -50,8 +50,8 @@ class UserForm extends React.Component {
                         last_name: this.props.user.last_name
                     }}
                     onSubmit={(values, {setSubmitting,resetForm,initialValues,setErrors,isTouched}) => {
-                        const resetForm = () => resetForm(initialValues);
-                        this.props.updateUser(values, setSubmitting, resetForm, setErrors, isTouched)
+                        const resetThisForm = () => resetForm(initialValues);
+                        this.props.updateUser(values, setSubmitting, resetThisForm, setErrors, isTouched)
                     }}
                     render={({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue}) => (
                         <Form onSubmit={handleSubmit}>

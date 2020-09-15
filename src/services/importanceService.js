@@ -1,4 +1,4 @@
-import {authenticatedGet} from './apiServicer';
+import {authenticatedGet} from './apiService';
 
 const ImportanceService = {
     getImportance: () => {
