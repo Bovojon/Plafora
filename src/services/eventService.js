@@ -1,7 +1,7 @@
 import {authenticatedPost} from './apiService';
 
 const EventService = {
-    submitEvent: (date) => {
+    submitEvent: (data) => {
         return authenticatedPost('/api/events/', data);
     }
 }
