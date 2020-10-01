@@ -36,5 +36,6 @@ Built with React, Redux, Redux-Saga.
 
 ## Refactoring:
 - Convert class components to functions using Hooks.
+- Wrap actions within functions to abstract away object creation.
 - Put all action types in actions/constants.js
 - Replace `className` with styled components.
